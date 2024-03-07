@@ -127,7 +127,13 @@ const Index = () => {
                 <option value="income">Income</option>
                 <option value="expense">Expense</option>
               </Select>
-              <Input placeholder="Category" name="category" value={form.category || ""} onChange={handleInputChange} />
+              <Select name="category" placeholder="Select category" value={form.category || ""} onChange={handleInputChange}>
+                <option value="Salary">Salary</option>
+                <option value="Groceries">Groceries</option>
+                <option value="Bills">Bills</option>
+                <option value="Entertainment">Entertainment</option>
+                <option value="Other">Other</option>
+              </Select>
               <Input placeholder="Date" name="date" type="date" value={form.date || ""} onChange={handleInputChange} />
             </Stack>
           </ModalBody>
