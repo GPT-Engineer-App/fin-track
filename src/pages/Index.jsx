@@ -61,7 +61,7 @@ const Index = () => {
       if (error) {
         console.error("Error updating transaction:", error);
       } else {
-        setTransactions((prev) => prev.map((t) => (t.id === form.id ? data : t)));
+        setTransactions((prev) => prev.map((t) => (t.id === form.id ? data[0] : t)));
       }
     } else {
       const { data, error } = await supabase.from("transactions").insert([form]).select();
