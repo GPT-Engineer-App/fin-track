@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { supabase } from "../supabase";
 import { Box, Button, Flex, Heading, Input, Select, Stack, Text, useToast, VStack, IconButton, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton } from "@chakra-ui/react";
 import { FaPlus, FaEdit, FaTrash, FaFileDownload } from "react-icons/fa";
 
@@ -22,10 +23,19 @@ const TransactionItem = ({ transaction, onEdit, onDelete }) => (
 // Main component
 const Index = () => {
   // State
-  const [transactions, setTransactions] = useState([
-    { id: 1, date: "2023-04-01", amount: 500, type: "income", category: "Salary" },
-    { id: 2, date: "2023-04-03", amount: 50, type: "expense", category: "Groceries" },
-  ]);
+  const [transactions, setTransactions] = useState([]);
+  useEffect(() => {
+    const fetchTransactions = async () => {
+      let { data: transactions, error } = await supabase.from("transactions").select("*");
+      if (error) {
+        console.error("Error fetching transactions:", error);
+      } else {
+        setTransactions(transactions);
+      }
+    };
+
+    fetchTransactions();
+  }, []);
   const [form, setForm] = useState({});
   const [filter, setFilter] = useState({});
   const [editMode, setEditMode] = useState(false);
@@ -45,17 +55,21 @@ const Index = () => {
     setFilter((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (editMode) {
-      // Edit transaction
-      setTransactions((prev) => prev.map((t) => (t.id === form.id ? { ...t, ...form } : t)));
+      const { data, error } = await supabase.from("transactions").update(form).match({ id: form.id });
+      if (error) {
+        console.error("Error updating transaction:", error);
+      } else {
+        setTransactions((prev) => prev.map((t) => (t.id === form.id ? data : t)));
+      }
     } else {
-      // Add new transaction
-      const newTransaction = {
-        id: Date.now(),
-        ...form,
-      };
-      setTransactions((prev) => [newTransaction, ...prev]);
+      const { data, error } = await supabase.from("transactions").insert([form]);
+      if (error) {
+        console.error("Error adding transaction:", error);
+      } else {
+        setTransactions((prev) => [data[0], ...prev]);
+      }
     }
 
     toast({
@@ -76,8 +90,13 @@ const Index = () => {
     onOpen();
   };
 
-  const handleDelete = (id) => {
-    setTransactions((prev) => prev.filter((t) => t.id !== id));
+  const handleDelete = async (id) => {
+    const { error } = await supabase.from("transactions").delete().match({ id });
+    if (error) {
+      console.error("Error deleting transaction:", error);
+    } else {
+      setTransactions((prev) => prev.filter((t) => t.id !== id));
+    }
     toast({
       title: "Transaction deleted.",
       status: "error",
