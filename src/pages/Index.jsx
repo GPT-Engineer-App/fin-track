@@ -57,14 +57,14 @@ const Index = () => {
 
   const handleSubmit = async () => {
     if (editMode) {
-      const { data, error } = await supabase.from("transactions").update(form).match({ id: form.id });
+      const { data, error } = await supabase.from("transactions").update(form).match({ id: form.id }).select();
       if (error) {
         console.error("Error updating transaction:", error);
       } else {
         setTransactions((prev) => prev.map((t) => (t.id === form.id ? data : t)));
       }
     } else {
-      const { data, error } = await supabase.from("transactions").insert([form]);
+      const { data, error } = await supabase.from("transactions").insert([form]).select();
       if (error) {
         console.error("Error adding transaction:", error);
       } else {
@@ -125,6 +125,7 @@ const Index = () => {
     return (!filter.type || transaction.type === filter.type) && (!filter.category || transaction.category === filter.category) && (!filter.dateFrom || new Date(transaction.date) >= new Date(filter.dateFrom)) && (!filter.dateTo || new Date(transaction.date) <= new Date(filter.dateTo));
   });
 
+  console.log(transactions)
   // JSX
   return (
     <VStack spacing={4}>
