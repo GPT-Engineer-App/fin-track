@@ -4,7 +4,7 @@ import { FaPlus, FaEdit, FaTrash, FaFileDownload } from "react-icons/fa";
 
 // Transaction item component
 const TransactionItem = ({ transaction, onEdit, onDelete }) => (
-  <Flex justifyContent="space-between" alignItems="center" p={2} borderWidth="1px" borderRadius="lg">
+  <Flex justifyContent="space-between" alignItems="center" p={2} borderWidth="1px" borderRadius="lg" w="100%">
     <Box>
       <Text fontSize="sm">{new Date(transaction.date).toLocaleDateString()}</Text>
       <Text fontWeight="bold">
