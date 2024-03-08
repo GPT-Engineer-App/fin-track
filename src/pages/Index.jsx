@@ -125,6 +125,8 @@ const Index = () => {
     return (!filter.type || transaction.type === filter.type) && (!filter.category || transaction.category === filter.category) && (!filter.dateFrom || new Date(transaction.date) >= new Date(filter.dateFrom)) && (!filter.dateTo || new Date(transaction.date) <= new Date(filter.dateTo));
   });
 
+  const signOut = () => supabase.auth.signOut();
+
   console.log(transactions)
   // JSX
   return (
@@ -134,6 +136,10 @@ const Index = () => {
       <Button leftIcon={<FaPlus />} colorScheme="teal" onClick={onOpen}>
         Add Transaction
       </Button>
+      <Button leftIcon={<FaPlus />} colorScheme="teal" onClick={signOut}>
+        Logout
+      </Button>
+
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
