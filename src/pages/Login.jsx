@@ -24,10 +24,10 @@ export default function Auth() {
     <Container centerContent>
       <VStack spacing={4} align="stretch" w="100%">
         <Heading as="h1" size="xl" textAlign="center">
-          Supabase + React
+          Welcome to Fin-Track
         </Heading>
         <Text fontSize="md" textAlign="center">
-          Sign in via magic link with your email below
+          Manage your finances effortlessly. Sign in to track your income and expenses, categorize transactions, and make informed financial decisions.
         </Text>
         <form onSubmit={handleLogin}>
           <VStack spacing={4}>
