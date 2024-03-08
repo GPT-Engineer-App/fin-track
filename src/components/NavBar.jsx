@@ -4,7 +4,7 @@ import { FaSignOutAlt } from "react-icons/fa";
 
 const NavBar = ({ onSignOut }) => {
   return (
-    <Flex bg="blue.500" color="white" px={5} py={4} justifyContent="space-between" alignItems="center">
+    <Flex bg="blue.500" color="white" px={5} py={4} justifyContent="space-between" alignItems="center" w="100%">
       <Box>
         <Text fontSize="xl" fontWeight="bold">
           Fin-Track
