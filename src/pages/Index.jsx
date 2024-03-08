@@ -133,14 +133,10 @@ const Index = () => {
   return (
     <VStack spacing={4}>
       <NavBar onSignOut={signOut} />
-
       <Button leftIcon={<FaPlus />} colorScheme="teal" onClick={onOpen}>
         Add Transaction
       </Button>
-      <Button leftIcon={<FaPlus />} colorScheme="teal" onClick={signOut}>
-        Logout
-      </Button>
-
+      // This button is removed as its functionality is being moved to the navbar component
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
@@ -172,7 +168,6 @@ const Index = () => {
           </ModalFooter>
         </ModalContent>
       </Modal>
-
       <Box w="100%">
         <Heading size="md">Filters</Heading>
         <Flex>
@@ -185,7 +180,6 @@ const Index = () => {
           <Input placeholder="To" type="date" name="dateTo" onChange={handleFilterChange} />
         </Flex>
       </Box>
-
       <Box w="100%">
         <Heading size="md">Transactions</Heading>
         <VStack spacing={2}>
@@ -194,7 +188,6 @@ const Index = () => {
           ))}
         </VStack>
       </Box>
-
       <Flex justifyContent="space-between" alignItems="center" w="100%">
         <Heading size="md">Total Balance: ${calculateBalance()}</Heading>
         <Button leftIcon={<FaFileDownload />} colorScheme="green" onClick={handleExport}>

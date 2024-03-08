@@ -10,7 +10,7 @@ const NavBar = ({ onSignOut }) => {
           Fin-Track
         </Text>
       </Box>
-      <IconButton aria-label="Logout" icon={<FaSignOutAlt />} size="md" onClick={onSignOut} variant="outline" colorScheme="whiteAlpha" />
+      <IconButton aria-label="Logout" icon={<FaSignOutAlt />} size="md" onClick={() => onSignOut()} variant="outline" colorScheme="whiteAlpha" />
     </Flex>
   );
 };
