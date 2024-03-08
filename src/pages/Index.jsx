@@ -131,7 +131,7 @@ const Index = () => {
   console.log(transactions);
   // JSX
   return (
-    <VStack spacing={4} mt="4">
+    <VStack spacing={4}>
       <NavBar onSignOut={signOut} />
 
       <Button leftIcon={<FaPlus />} colorScheme="teal" onClick={onOpen}>
