@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
+import NavBar from "../components/NavBar";
 import { supabase } from "../supabase";
 import { Box, Button, Flex, Heading, Input, Select, Stack, Text, useToast, VStack, IconButton, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton } from "@chakra-ui/react";
 import { FaPlus, FaEdit, FaTrash, FaFileDownload } from "react-icons/fa";
@@ -127,11 +128,11 @@ const Index = () => {
 
   const signOut = () => supabase.auth.signOut();
 
-  console.log(transactions)
+  console.log(transactions);
   // JSX
   return (
-    <VStack spacing={4}>
-      <Heading>Personal Finance Manager</Heading>
+    <VStack spacing={4} mt="4">
+      <NavBar onSignOut={signOut} />
 
       <Button leftIcon={<FaPlus />} colorScheme="teal" onClick={onOpen}>
         Add Transaction
@@ -139,7 +140,6 @@ const Index = () => {
       <Button leftIcon={<FaPlus />} colorScheme="teal" onClick={signOut}>
         Logout
       </Button>
-
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
