@@ -1,26 +1,27 @@
-import { useState, useEffect } from 'react'
-import { supabase } from './supabase'
-import Login from './pages/Login';
+import { useState, useEffect } from "react";
+import { supabase } from "./supabase";
+import Login from "./pages/Login";
 import Index from "./pages/Index.jsx";
 
 function App() {
-  const [session, setSession] = useState(null)
+  const bypassLogin = true;
+  const [session, setSession] = useState(bypassLogin ? { user: { id: "fake-user-id" } } : null);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session)
-    })
+      setSession(session);
+    });
 
     supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session)
-    })
-  }, [])
+      setSession(session);
+    });
+  }, []);
 
   return (
-    <div className="container" style={{ padding: '50px 0 100px 0' }}>
-      {!session ? <Login /> : <Index key={session.user.id} session={session} />}
+    <div className="container" style={{ padding: "50px 0 100px 0" }}>
+      {!session ? bypassLogin ? <Index key={"fake-user-id"} session={session} /> : <Login /> : <Index key={session.user.id} session={session} />}
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
