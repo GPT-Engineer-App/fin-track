@@ -10,7 +10,13 @@ export default function Auth() {
     event.preventDefault();
 
     setLoading(true);
-    const { error } = await supabase.auth.signInWithOtp({ email });
+    const { data, error } = await supabase.auth.signInWithOtp({
+        email,
+        options: {
+          emailRedirectTo: 'https://fin-track.gptengineer.run',
+        },
+      })
+    
 
     if (error) {
       alert(error.error_description || error.message);
