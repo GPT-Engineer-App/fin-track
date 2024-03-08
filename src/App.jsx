@@ -18,7 +18,7 @@ function App() {
   }, []);
 
   return (
-    <div className="container" style={{ padding: "50px 0 100px 0" }}>
+    <div className="container" style={{ padding: "0 0 100px 0" }}>
       {!session ? bypassLogin ? <Index key={"fake-user-id"} session={session} /> : <Login /> : <Index key={session.user.id} session={session} />}
     </div>
   );
